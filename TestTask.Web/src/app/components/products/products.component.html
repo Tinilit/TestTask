@@ -1,0 +1,85 @@
+<section class="secion">
+    <h1>
+        <span class="title">
+            Products | <span class="subtitle">{{productsCount}} products found</span>
+        </span>
+        <mat-form-field class="global-search" *ngIf="(products && products.length > 0) || ajaxRequest">
+            <input matInput class="categoryFilter" [(ngModel)]="request.term" placeholder="Search" maxlength="100"
+                (keyup.enter)="search()">
+            <i class="fa fa-times" matSuffix (click)="request.term = ''; update();"></i>
+        </mat-form-field>
+    </h1>
+    <div class="content-wrapper">
+        <aside class="filter-container" *ngIf="(products && products.length > 0) || ajaxRequest">
+            <mat-form-field>
+                <input matInput name="categoryFilter" class="categoryFilter"
+                    [matAutocomplete]="categoryFilterAutocomplete" (input)="searchCategory($event.target.value)"
+                    [(ngModel)]="categoryFilter" placeholder="Category">
+                <mat-autocomplete #categoryFilterAutocomplete="matAutocomplete" autoActiveFirstOption
+                    [displayWith]="displayEntityRefFn" (optionSelected)="onCategoryFilterSelected($event)">
+                    <mat-option *ngFor="let category of categoriesAutocomplete" [value]="category">
+                        {{category.title}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <button mat-button class="btnTextWhite" (click)="search()">
+                Search
+            </button>
+            <button mat-button class="btnTextWhite" (click)="clearFilters()">
+                Clear filter
+            </button>
+        </aside>
+        <div class="table-wrapper" [hidden]="(!products || products.length === 0)" [ngClass]="{'loading': ajaxRequest}">
+            <!-- removed, because don't like this behavior -->
+            <!-- <mat-spinner *ngIf="ajaxRequest"></mat-spinner> -->
+            <table mat-table #table [dataSource]="productsData" matSort class="mat-elevation-z8">
+                <ng-container matColumnDef="title">
+                    <mat-header-cell *matHeaderCellDef class="table-first-column"> Title </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="table-first-column" (click)="toEdit(element.id);"
+                        matTooltip="Edit product" [matTooltipPosition]="'right'"
+                        style="cursor: pointer; font-weight: bold;"> {{element.title}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="price">
+                    <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.price}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="categoryTitle">
+                    <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.categoryTitle}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="createdDate">
+                    <mat-header-cell *matHeaderCellDef> Created </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.createdDate | date:'short'}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <button mat-icon-button [matMenuTriggerFor]="actionMenu">
+                            <i class="fa fa-ellipsis-v"></i>
+                        </button>
+                        <mat-menu #actionMenu="matMenu">
+                            <button mat-menu-item (click)="openModal(element)">
+                                Edit
+                            </button>
+                            <button mat-menu-item (click)="remove(element.id)">
+                                Delete
+                            </button>
+                        </mat-menu>
+                    </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </table>
+            <mat-paginator #paginator [length]="productsCount" [pageSize]="pageSize">
+            </mat-paginator>
+
+
+        </div>
+
+        <div class="no-results-block" [hidden]="(products && products.length > 0) || ajaxRequest">
+            <h4>No product matches your filter/search criteria. Try to clear filter to see all products.</h4>
+        </div>
+        <button clas="add-button" mat-mini-fab color="primary" class="add-button" (click)="toCreation()">+</button>
+    </div>
+
+</section>

@@ -1,0 +1,32 @@
+<form name="editProductForm" #editProductForm="ngForm" (ngSubmit)="formSubmit()">
+  <p class="pageTitle">{{pageTitle}}</p>
+  <div class="example-container">
+    <mat-form-field>
+      <input matInput placeholder="Enter product name" [(ngModel)]="productTitle" name="productTitle" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput name="categoryFilter" class="categoryFilter" [matAutocomplete]="categoryFilterAutocomplete"
+        (input)="searchCategory($event.target.value)" placeholder="Category"
+        [(ngModel)] = "productCategory" required>
+      <mat-autocomplete #categoryFilterAutocomplete="matAutocomplete" autoActiveFirstOption
+        [displayWith]="displayEntityRefFn" (optionSelected)="onCategoryFilterSelected($event)">
+        <mat-option *ngFor="let category of categoriesAutocomplete" [value]="category">
+          {{category.title}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Price" class="example-right-align" [(ngModel)]="productPrice" min="0"
+        pattern="^\d+(?:\.\d{0,2})?$" name="productPrice" required>
+      <span matPrefix>$&nbsp;</span>
+    </mat-form-field>
+    <div mat-dialog-actions style="justify-content: space-between;">
+      <div>
+        <button type="button" mat-button (click)="onCancelClick()">Cancel</button>
+        <button type="submit" mat-button>{{submitButtonText}}</button>
+      </div>
+    </div>
+  </div>
+</form>

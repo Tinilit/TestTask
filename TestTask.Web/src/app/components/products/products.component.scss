@@ -1,0 +1,59 @@
+section
+{
+    background-color: #262934;
+    padding: 1% 5% 10% 5%;
+    
+}
+table {
+    width: 100%;
+  }
+  
+  th.mat-sort-header-sorted {
+    color: black;
+  }
+
+  .title
+  {
+      color: white;
+  }
+  .subtitle
+  {
+      color:white;
+  }
+  .content-wrapper
+  {
+    -webkit-box-shadow: 2px 14px 23px 5px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 14px 23px 5px rgba(0,0,0,0.75);
+    box-shadow: 2px 14px 23px 5px rgba(0,0,0,0.75);
+  }
+  .add-button
+  {
+      margin: 1% 1% 1% 2%;
+  }
+  .categoryFilter
+  {
+    color: white;
+  }
+  .btnTextWhite
+  {
+    color: white;
+  }
+  .fieldBtn
+  {
+    margin-left: 5px;
+  }
+  .secion
+  {
+    padding-bottom: 40px;
+  }
+  .no-results-block
+  {
+    text-align: center;
+    margin: 20px;
+    color: white;
+  }
+  .global-search
+  {
+    float: right;
+    margin-top: -30px;
+  }

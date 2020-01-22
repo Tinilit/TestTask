@@ -8,7 +8,7 @@
     <mat-form-field>
       <input matInput name="categoryFilter" class="categoryFilter" [matAutocomplete]="categoryFilterAutocomplete"
         (input)="searchCategory($event.target.value)" placeholder="Category"
-        [(ngModel)] = "productCategory" required>
+        [(ngModel)] = "category.title" required>
       <mat-autocomplete #categoryFilterAutocomplete="matAutocomplete" autoActiveFirstOption
         [displayWith]="displayEntityRefFn" (optionSelected)="onCategoryFilterSelected($event)">
         <mat-option *ngFor="let category of categoriesAutocomplete" [value]="category">

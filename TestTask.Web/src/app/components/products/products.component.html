@@ -3,14 +3,14 @@
         <span class="title">
             Products | <span class="subtitle">{{productsCount}} products found</span>
         </span>
-        <mat-form-field class="global-search" *ngIf="(products && products.length > 0) || ajaxRequest">
+        <mat-form-field class="global-search">
             <input matInput class="categoryFilter" [(ngModel)]="request.term" placeholder="Search" maxlength="100"
                 (keyup.enter)="search()">
             <i class="fa fa-times" matSuffix (click)="request.term = ''; update();"></i>
         </mat-form-field>
     </h1>
     <div class="content-wrapper">
-        <aside class="filter-container" *ngIf="(products && products.length > 0) || ajaxRequest">
+        <aside class="filter-container">
             <mat-form-field>
                 <input matInput name="categoryFilter" class="categoryFilter"
                     [matAutocomplete]="categoryFilterAutocomplete" (input)="searchCategory($event.target.value)"

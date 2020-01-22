@@ -21,7 +21,6 @@ export class ProductModalComponent implements OnInit {
   submitButtonText: string;
   categories: CategoryDto[];
   categoriesAutocomplete: CategoryDto[];
-  productCategory: string;
   category: CategoryDto = new CategoryDto();
   @ViewChild("editProductForm", { static: true }) editProductForm: NgForm;
   @Input('productDto') productDto: ProductDto;
@@ -41,10 +40,14 @@ export class ProductModalComponent implements OnInit {
       this.submitButtonText = "Create";
       this.pageTitle = "Create new product";
     }
+    debugger;
     this.productTitle = this.data["productDto"].title;
     this.productPrice = this.data["productDto"].price;
     this.productId = this.data["productDto"].id;
-    this.productCategory = this.data["productDto"].categoryTitle;
+
+    this.category = new CategoryDto();
+    this.category.id = this.data["productDto"].categoryId;
+    this.category.title = this.data["productDto"].categoryTitle;
   }
 
   formSubmit() {
